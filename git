@@ -1,0 +1,230 @@
+git:source control | local 
+https://www.atlassian.com/git/tutorials
+https://git-scm.com/docs
+versioning-history-backup-archive-isolation of changes
+
+Source control:
+    Centralized
+    Decentralized or Distributed
+
+Git Repository
+    .git
+        Working directory | Staging Area | Repository .Git  
+                            .txt                .txt
+
+
+
+git version
+
+Snapshots 1, 2, 3 
+
+commit -> default is master branch
+Staging Area: index
+Commits: Objects folder
+add -> style.css (staging area) commit -> styles.css (commits)
+Master Branch | Different Branch
+    C1, C2          C1, C2, C3, C4 
+
+it should be .git file in the folder. git init
+
+for tracking add: git add "filename" or git add . 
+git commit -m "your messages" (dont forget to aadd who are you)
+
+git config --global user.email "abckg@x.com"
+git config --global user.name "abckg"
+
+git log (show your history)
+git checkout "unique commit code" (go this commit)
+git checkout master (go master status)
+
+git branch (show your branch)
+
+git branch "test" (create test branch)
+git checkout test (switch to test branch)
+git checkout -b poc (create and switch to poc)
+
+merging:
+merge Master and test
+git merge test
+
+last commit called "HEAD"
+git switch poc (it is like checkout = switch )
+git switch -c poc2
+
+undoing unstaged:
+git rm "filename" (remove files on branch)
+git restore "filename" (clean)
+git clean -dn (untrack)
+git clean -df (delete)
+git checkout "filename" (undoing)
+
+undoing staged:
+git reset "filename" ()
+git checkout "filename
+or
+git restore --staged "filename"
+git checkout "filename"
+
+deleting commits:
+git reset --soft HEAD~1 (reset 1 commit)
+git commit -m "deleted"
+git reset HEAD~1 (reset 1 commit, default)
+git reset --hard HEAD~1 (reset 1 commit, default)
+
+deleting Branch
+git branch -D "branchname"
+
+.gitignore = in order to ignore files which you want
+summary:
+git --version
+git init
+git status
+git log
+git ls-files
+git add filename
+git commit -m "message"
+git checkout commitid
+git branch branchname or git switch branchname
+git checkout branchname
+git checkout -b branchname or git switch -c branchname
+git merge otherbranch
+git rm filename
+git checkout (--) . git restore filename .
+git clean -df (delete untrack)
+git reset filename and git checkout -- filename / git restore --staged filename
+git reset HEAD~1
+git reset --soft HEAD~1
+git reset --hard HEAD~1
+git branch -D branchname (delete branch)
+git update
+git update 
+
+git stash
+git stash apply 1
+
+git stash list
+git stash clear
+
+bringing lost data backup
+git reset --hard HEAD~1 (last commit no longer it's common way ü)
+git reflog (bunu anlamadım biraz daha bakmam lazım  )
+git reset --hard ce6106a (go to ce6106a you can add ce6106a) 
+git checkout -b feature
+
+combining master:
+merge types:
+    Fast forward
+    non fast forward   
+        recursive
+        octopus
+        ours
+        subtree
+master m1 m2      ? (fast forward merge)
+feature m1 m2 f1 f2 
+
+git switch feature
+git switch master
+git merge feature (you can see fast-forward)
+git merge --squash feature (featuredaki dosyaları master'a ekliyor fakat commit eklemiyor o sebeple ekstra olarak senin commit eklemen gerkeiyor)
+
+recursive:
+
+git merge --no-ff feature (recursive)
+
+rebase:
+    be careful doing at cloud
+    git rebase master
+
+merge vs rebase vs cherry-pick
+merge non-fast forward--->create merge commit--->new commit
+rebase---->change single parent--->new commit ID
+cherry pic---->add spesific commit to head---->copies commit with New ID
+
+git cherry-pick "hash" (master'a yeni id ile o değişikliği eklemiş oluyor.)
+git tag 1.0
+git tag -d 1.0
+
+summary:
+git stash: temporary storage for unstaged and uncommitted changes
+git reflog: log of all project changes including deleted commits
+git merge: commit and fast forward merge
+git rebase: change the base of commits in another branch
+git cherry-pick: coppy commit including the changes made only in this commit as Head to other Branch
+
+https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging#_advanced_merging
+https://git-scm.com/docs/merge-strategies
+
+githubs:
+git remote add origin URL
+git push
+git pull
+
+git merge <new-branch-name>
+git merge <new-branch-name> --allow-unrelated-histories (if it occurs error "Fatal: refusing to merge unrelated histories
+")
+
+remote tracking:
+    remote file-> git branch -a or git branch -r
+    git push origin <newbrunch> (added new brunch and push but you can see remote tracking file with git branch -r or -a )
+
+    remote da branch açarsan
+    github üzerinde ekledin fakat local de yok
+    git ls-remote (yaparak nerede ne var alabilirsin)
+    git fetch origin  (önce çekmk için fetchlemen lazım)
+    ardından git branch -a (burada remote u görebilirsiin.)
+    git pull origin (pull ilişki varsa alabilir.)
+    tracking branch ve remote tracking branch(git fetch) var.
+    local tracking branch (git push ve git pull)
+
+remote branch---->"git fetch" remote tracking ------> git merge local tracking then "git push" ile remote tracking i güncelliyorsun
+
+local tracking:
+    git branch --track rometebranchnamered origin/remotebranchname 
+    git switch remotebranchname
+    git push (eğer sadece lokali değiştirirsen böyle yazman yeterli bu değişiklik localden remote'e yazıylıyor.)
+    git brunch -vv önemli: git branch -r önemli
+
+Summary of commands:
+git remote (show remote servers )
+git branch -a (all branch)
+git branch -r (remote)
+git remote show origin (detailed)
+git branch -vv (local tracking)
+git branch --track branchname origin/branchname
+
+git clone:
+git clone "link"
+then git init
+git branch --track origin/featyre remotes/origin feature
+
+git push -u origin feature-upstream (short cut to connect with track remote)
+git branch --delete --remotes origin/feature (remote branch silme işlemi için)
+ya da direk bunu yaparak silebilirsin.-> git push origin --delete feature
+summary:
+                 git                             github
+    Repository   local                           remote                     git remote add origin URL
+    Branch       Local tracking                  remote                     git branch --track branchname origin/branchname
+                 Remote Traking                                             git pull/push origin Branch
+Github deep:
+    you can clone public repositories from github but you need personel token to pull.
+
+githubda personal projede contribitor olarak seçersen o da pull yapabilir. böylelikle personal access token vermene gerek kalmaz. kendisi oluşturması gerekr.
+
+public-->private contrubiton isen private yapsan da commit gönderebilirsin.
+
+moderation settings: temporary interaction limits
+
+part of organizations:
+    *role
+    access management ile orgda dışarıdan getirdiğin kişiler read olarak gelir. takım arkadaşların da read olarak default gelir.
+
+teams ise harici olarak bir iam tarafıdır. teams ile de kullanabilirsin.
+team memberlara farklı repolara göre farklı yetkiler verebiliyorouz.
+
+clone: için remote dan lokale dosyayı çeker sonrasında gönderirsin bunun için collabrator olman lazım
+fork: fork contribitor için kullanılıyor.fork and pull request
+remote copy with fork (github feature) geliştirme yaptıktan sonra sahibine pull request gönderip review etmesini istersin.
+issues: soru sorup çözüm beklediğin sahibinin kapattığı kısım. fazla bir numarası yok.
+project: agile kanban yöntemlerinin kullandığı kısım
+
+change branch name: git branch -m oldname newname
