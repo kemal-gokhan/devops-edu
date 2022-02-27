@@ -13,7 +13,7 @@ git: is source control technology
 - https://git-scm.com/docs
 
 
-###Source control:
+### Source control:
     Centralized
     Decentralized or Distributed
 
@@ -24,7 +24,7 @@ git: is source control technology
 
 
 **First:**
-:**.gitignore:** file = in order to ignore files which you want
+**.gitignore:** file = in order to ignore files which you want
 `git version` 
 
 **to git repo**:
