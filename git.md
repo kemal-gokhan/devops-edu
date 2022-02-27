@@ -128,7 +128,7 @@ or
 - git stash list
 - git stash clear
 
-**bringing lost data backup**
+**Bringing lost data backup**
 `git reset --hard HEAD~1 `(last commit no longer it's common way)
 `git reflog `
 `git reset --hard ce6106a` (go to ce6106a you can add ce6106a) 
@@ -157,7 +157,7 @@ feature m1 m2 f1 f2
     be careful doing at cloud
     git rebase master
 
-**merge vs rebase vs cherry-pick**
+**Merge vs Rebase vs Cherry-pick**
 |  merge non-fast forward--->create merge commit--->new commit |
 | rebase---->change single parent--->new commit ID |
 | cherry pic---->add spesific commit to head---->copies commit with New ID |
@@ -167,7 +167,7 @@ git cherry-pick "hash" (master'a yeni id ile o değişikliği eklemiş oluyor.)
 git tag 1.0
 git tag -d 1.0
 
-**summary:**
+**Summary:**
 - git stash: temporary storage for unstaged and uncommitted changes
 - git reflog: log of all project changes including deleted commits
 - git merge: commit and fast forward merge
@@ -178,7 +178,7 @@ https://git-scm.com/book/en/v2/Git-Tools-Advanced-Merging#_advanced_merging
 https://git-scm.com/docs/merge-strategies
 
 
-**remote tracking:**
+**Remote tracking:**
     remote file-> git branch -a or git branch -r
     git push origin <newbrunch> (added new brunch and push but you can see remote tracking file with git branch -r or -a )
 
@@ -191,13 +191,14 @@ If you add branch on repo(cloud) you cant see on your local, so
 
 remote branch---->"git fetch" remote tracking ------> git merge local tracking then "git push" update repo.
 
-**local tracking:**
+**Local tracking:**
     git branch --track rometebranchnamered origin/remotebranchname 
     git switch remotebranchname
     git push (eğer sadece lokali değiştirirsen böyle yazman yeterli bu değişiklik localden remote'e yazıylıyor.)
     git brunch -vv önemli: git branch -r önemli
 
 ### Summary of commands:
+	
 git remote (show remote servers )
 git branch -a (all branch)
 git branch -r (remote)
@@ -227,9 +228,13 @@ part of organizations:
 teams -> IAM You can divide teams that you can manage different branches and projects.
 
 clone: Remote to local
+	
 fork: fork is using for contribitor.fork and pull request
+	
 copy with fork (github feature) after development, you can pull request to owner.
+	
 issues: in a nutshell ticket
+	
 project: management to project with kanban, agile strategies
 	
 
