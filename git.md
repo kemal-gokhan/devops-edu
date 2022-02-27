@@ -48,7 +48,7 @@ for tracking add: `git add "filename" or git add .`
 
 `git config --global user.name "abckg"`
 
-#Fundamental
+# Fundamental
 `git log ` (show your history)
 
 `git checkout "unique commit code" ` (go this commit)
@@ -97,7 +97,7 @@ or
 `git branch -D "branchname"`
 
 
-#Summary:
+# Summary:
 
 - git --version
 - git init
@@ -134,9 +134,7 @@ or
 `git reset --hard ce6106a` (go to ce6106a you can add ce6106a) 
 `git checkout -b feature`
 
-
-
-###merge types:
+#Merge types:
     Fast forward
     Non fast forward   
         recursive
@@ -160,9 +158,10 @@ feature m1 m2 f1 f2
     git rebase master
 
 **merge vs rebase vs cherry-pick**
-merge non-fast forward--->create merge commit--->new commit
-rebase---->change single parent--->new commit ID
-cherry pic---->add spesific commit to head---->copies commit with New ID
+|  merge non-fast forward--->create merge commit--->new commit |
+| rebase---->change single parent--->new commit ID |
+| cherry pic---->add spesific commit to head---->copies commit with New ID |
+
 
 git cherry-pick "hash" (master'a yeni id ile o değişikliği eklemiş oluyor.)
 git tag 1.0
@@ -182,12 +181,11 @@ https://git-scm.com/docs/merge-strategies
 **remote tracking:**
     remote file-> git branch -a or git branch -r
     git push origin <newbrunch> (added new brunch and push but you can see remote tracking file with git branch -r or -a )
-	
-	
+
 If you add branch on repo(cloud) you cant see on your local, so
 -     git ls-remote (see files)
 -     git fetch origin  (for fetching)
--     ardından git branch -a (all branches)
+-     then -a (all branches)
 -     git pull origin (pulling)
 
 
@@ -215,25 +213,24 @@ git branch --track origin/feature remotes/origin feature
 git push -u origin feature-upstream (short cut to connect with track remote)
 git branch --delete --remotes origin/feature (remote branch delete) -> git push origin --delete feature
 
-#Summary:
+# Summary:
                  git                             github
     Repository   local                           remote                     git remote add origin URL
     Branch       Local tracking                  remote                     git branch --track branchname origin/branchname
                  Remote Tracking                                            git pull/push origin Branch
-Github:
-    you can clone public repositories from github but you need personel token to pull.
-
-Contrubitor or collabrator
+Github: you can clone public repositories from github but you need personel token to pull. Contrubitor or collabrator
 
 part of organizations:
     *role
      You can add external people to your project with ROLES and IAM. (def:read)
 
-TEAMS-> IAM You can divide teams that you can manage different branches and projects.
+teams -> IAM You can divide teams that you can manage different branches and projects.
 
 clone: Remote to local
 fork: fork is using for contribitor.fork and pull request
 copy with fork (github feature) after development, you can pull request to owner.
 issues: in a nutshell ticket
 project: management to project with kanban, agile strategies
+	
+
 
