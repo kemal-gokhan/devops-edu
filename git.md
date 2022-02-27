@@ -24,6 +24,7 @@ git: is source control technology
 
 
 **First:**
+
 **.gitignore:** file = in order to ignore files which you want
 `git version` 
 
@@ -42,8 +43,7 @@ To **start**: `git init`
 for tracking add: `git add "filename" or git add .` 
 `git commit -m "your messages"` (dont forget to add what are your messages)
 
-**Who are you?
-**
+**Who are you?**
 `git config --global user.email "abckg@x.com"`
 
 `git config --global user.name "abckg"`
