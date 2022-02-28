@@ -1,4 +1,4 @@
-Linux Fundemental Commands
+# Linux Fundemental Commands
 
 man (manual)
 --help (command option to find out options or help)
@@ -9,22 +9,23 @@ I'm gonna share my experience for other people and to follow my notes."
 
 file called always abckg.txt (you should change if you want to use it)
 
+# Fundamental knowledge
 Input - Output - Error
 0		1			2
 
-yourinput > addedyouroutput
-yourinput >> addedyouroutput (appended)
+**yourinput > addedyouroutput**
+**yourinput >> addedyouroutput** (appended)
 ls >  abckg.txt | cp abckg.txt abckgnew.txt && rm abckg.txt
-> redirects output to a file, overwriting the file.
->> redirects output to a file appending the redirected output at the end.
+'>' redirects output to a file, overwriting the file.
+'>>' redirects output to a file appending the redirected output at the end.
 
-piping:
+### Piping:
 Command-1 | Command-2 | …| Command-N
 find *.txt | less (common usage with less in order to read easily.)
 
 pwd (show working directory)
 ls (show everything)
-cd (move directory)
+cd (move directory)	
 which cal
 mkdir (make directory - WHAT)
 rmdir (remove directory - WHAT )
