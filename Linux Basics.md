@@ -3,7 +3,7 @@
 `man` (manual)
 
 
-`--help `(command option to find out options or help)
+`--help ` (command option to find out options or help)
 
 
 `whatis`
@@ -11,11 +11,13 @@
 
 `whereis`
 
-
 `which`
 
+`whoami`
 
-`history` (show command history) | `history -c `
+`file filename` to learn which type of file
+
+`history` (show command history) | `history -c ` bash_history
 
 
 
@@ -26,17 +28,21 @@ file called always abckg.txt (you should change if you want to use it)
 
 # Fundamental knowledge
 
-`Input - Output -         Error
+`Input -        Output -         Error`
 
 
-0                1                2`
+`"0"                    "1"                   "2"`
 
-### Highlighted topic:
+### Must learn:   >     |     &
 
-**yourinput > addedyouroutput**
-**yourinput >> addedyouroutput** (appended)
-ls >  abckg.txt | cp abckg.txt abckgnew.txt && rm abckg.txt
+`**yourinput > addedyouroutput**`
+
+`**yourinput >> addedyouroutput**` (appended)
+
+`ls >  abckg.txt | cp abckg.txt abckgnew.txt && rm abckg.txt`
+
 `>` redirects output to a file, overwriting the file.
+
 `>>` redirects output to a file appending the redirected output at the end.
 
 ### Piping:
@@ -44,7 +50,9 @@ ls >  abckg.txt | cp abckg.txt abckgnew.txt && rm abckg.txt
 Command-1 | Command-2 | …| Command-N
 
 `find *.txt | less` (common usage with less in order to read easily.)
+
 `double ||` : 1st command || 2nd command (if 1st be succeed,  no action. if not, do it 2nd command)
+
 `&&` : 1st be executed and then it can go 2nd.*
 
 `pwd` (show working directory)
@@ -76,6 +84,13 @@ Command-1 | Command-2 | …| Command-N
 
 `cp` (copy)
 
+`ln -s` shortcut
+
+`ln` backup
+
+`scp file usr@host:hostfolder` 
+
+`scp -r`  for directory copy
 
 `>` (redirect)
 
@@ -108,6 +123,7 @@ Command-1 | Command-2 | …| Command-N
 
 `ps` (report current process) (ps -l, -u, -x) (`ps aux`)
 
+`Ps -ef`
 
 `uname -a` (-r,-v,o,-n etc)
 
@@ -138,7 +154,11 @@ Command-1 | Command-2 | …| Command-N
 
 `free -m` (free mem)
 
+`/proc/meminfo`
 
+`/proc/cpuinfo`
+
+`Init 6` = `reboot`
 
 `service --status-all`
 
@@ -147,10 +167,12 @@ Command-1 | Command-2 | …| Command-N
 `su` (command with chosen user - WHO) #su kemal 
 
 
-`passwd <username>`
+`<username>`
 
 
 `adduser <username>`
+
+`id username`
 
 
 `sudo group add <groupname>`
@@ -160,28 +182,55 @@ Command-1 | Command-2 | …| Command-N
 
 
 
+`Service … status/start/stop/reload/restart`
+
+
 etc/passwd
+
 etc/shadow
 
 
 etc/group `tail -5 /etc/group`
 
+`Chmod ugo`
 
+`Chmod u+x file 1`
+`Chmod u+x,g-w`
+
+Read 4 write 2 exc 1
+`Chmod 777`
 
 d: directory
+
 -: standart
+
 r: read
+
 w: write
+
 x: execute
+
 chmod +x abckg.txt
+
 chmod 666 abckg.txt (rw)
+
+`Chkconfig` startup service
 
 ### Network
 
 etc/resolv.conf
+
 etc/services
+
 etc/hosts.allow
+
 etc/hosts.deny
+
+Etc/ssh/sshd_config
+
+Etc/https/conf/httpd
+
+
 `install openssh-server`
 
 
@@ -208,10 +257,12 @@ etc/hosts.deny
 
 `netstat -l` or `netstat -an` or `netstat -t` or `netstat -u`
 
+`Netstat -tulpn`
 
 
 `nano` (editor ^ = control or cmd)
 
+`Sed/change/change2/` (find and replace)
 
 
 `tar -cvf abckg.tar abckg.txt` (compress)
@@ -224,6 +275,11 @@ etc/hosts.deny
 
 `tar -cvzf abckg.tar.gz abckgfile1 abckgfile2` (one command for gzip)
 
+`tar -cvf dir1.tar dir1`
+
+`tar -xvf dir1.tar dir1`
+
+`tar -xvzf dir1.tar.gz`
 
 
 `gzip -9 abckg.txt`
@@ -240,11 +296,13 @@ etc/hosts.deny
 
 `zip -r abcgk.zip abckg.txt abc.zip -P 123`
 
+**Crontab - MinHourDayMonthWeek **
 
 
 ### bash scripting:#!/bin/bash
 
 find apt packages:
+
 `apt update `
 
 
@@ -262,6 +320,7 @@ find apt packages:
 
 
 apt packages are **located cd /var/lib/appt/lists**
+
 repos are **located sudo nano /etc/apt/sources.list
 
 **
