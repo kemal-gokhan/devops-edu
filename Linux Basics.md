@@ -51,9 +51,13 @@ Command-1 | Command-2 | …| Command-N
 
 `find *.txt | less` (common usage with less in order to read easily.)
 
-`double ||` : 1st command || 2nd command (if 1st be succeed,  no action. if not, do it 2nd command)
+`&` run in background
 
-`&&` : 1st be executed and then it can go 2nd.*
+`;` run all commands same time
+
+`&&` : 1st be executed and then it can go 2nd.
+
+`double ||` : 1st command || 2nd command (if 1st be succeed,  no action. if not, do it 2nd command "or")
 
 `pwd` (show working directory)
 
