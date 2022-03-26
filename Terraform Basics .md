@@ -1,6 +1,8 @@
 # IaC
 
-Ansible, Terraform, CloudFormation, Puppet    
+Ansible, Terraform, CloudFormation, Puppet   
+
+terraform = .tf 
 
 ### Conf Management:
 
@@ -40,7 +42,57 @@ https://learn.hashicorp.com/collections/terraform/aws-get-started?utm_source=ter
 
 HCL has BLOCK AND PARAMETERS
 
-KEY = VALUE
+
+hide secrets with the variables
+
+### remote state
+
+terraform.tfstate
+terraformtfstate.backup
+
+data "aws_ip_ranges" europena {
+  regions = ["eu-west-1"]
+}
+
+
+### Interpolation
+
+Variables: ${var.VARIABLE_NAM}
+Resources: ${aws_instance.name.id}
+Data Sources: ${data.template_file.name.rendered}
+
+key = value
+list: [0,1,2] unique and not repeatable
+map: {"key" = "value"}
+
+
+String VAR -- var.name -> ${var.VARIABLE_NAME}
+MAP VAR -- var.MAP["key"] -> ${var.AMIS["us-east-1"]}
+MAP VAR -- var.MAP["key"] -> ${lookup(var.AMIS, var.AWS_REGION)]}
+LIST VARIABLE -- var.LIST OR var.LIST[i] -> ${var.subnets[i]} OR ${join(",", var.subnets)}
+
+OUTPUTS -- module.NAME.output -> ${module.aws.vpc.vpcid}
+COUNT -- count.FIELD -> $ {count.index}
+PATH -- path.TYPE -> path.cwd(current directory) path.module (module path) path.root (root module path)
+META -- terraform.FIELD -> terraform.env  "shows active workspace"
+
+FILE -- ${file("rsakey.pub")} -> it reads rsakeypub
+
+### FUNCTION: 
+
+basename(path) -> basename("/home/kemal/file.txt") returns file.txt
+element(list, index) -> element(module.vpc.public_subnets, count.index) returns a single element
+index(list, elem) 
+join(delim, list)
+list(item1, item2) -> sample: join(":", list("a","b","c")) -> a:b:c
+lookup(map, key [default]) -> lookup(map("k","v"), "k","not found") -> returns "v"
+map(key,value) map("k", "v", "k2", "v2") -> {"k"="v", "k2"="v2"}
+replace(string, search, replace) replace("aaab","a","b") -> bbbb
+upper(string) upper("kemal") -> KEMAL
+values(map) values(map("k","v","k2","v2") -> ["v", "v2"]
+
+
+
 
 **<u>Block name - resource type (provider-re
   source) - resource name
@@ -220,6 +272,38 @@ cli -var flag is highest prioirities.
 
 Use the -var-file option with a variable file. The file can be named anything but should always end in either .tfvars or .tfvars.json
 
+
+### Terraform Commands
+terraform apply
+terraform destroy
+terraform fmt #format
+terraform get #download/update module
+terraform graph #create a visual representation
+terraform plan
+terraform push
+terraform refresh (remote)
+terraform remote #conf remote state
+terraform state #rename resource etc
+terraform validate #validate syntax
+terraform taint
+
+
+map_public_ip_on_launch will give this subnet a public IP address, which means it'll be a public subnet
+
+```
+resource "aws_subnet" "subnet-1" {
+    vpc_id = "${aws_vpc.main.id}"
+    cidr_block = "10.0.203.0/24"
+    map_public_ip_on_launch = "true"
+    availability_zone = "us-west-1a"
+}
+```
+
+If you need dynamic information, you can use datasources instead of variables. Datasources will pull their information from a remote API before it turns into a variable that can be used in *.tf files
+
+The terraform.tfstate can be read easily by opening the terraform.tfstate file in a text editor. You will see that the contents is in the JSON format. It can even be changed manually (if you know what you're doing).
+
+When you remove terraform.tfstate, at the time of writing, terraform doesn't recreate the terraform tfstate file itself automatically. You can use terraform import to manually recreate the terraform.tfstate.
 ### Resources Attributes
 
 One output for others input.
@@ -511,6 +595,12 @@ inline = [ ""sudo apt update", ...... ]
 }
 
 `local-exec` provisioner does not need a connection block as it does not connect to a remote instance to run tasks.
+provisioner "local-exec" { #run this command
+	command = "echo '15'"
+	}
+	
+	
+
 
 provisioners: "remote-exec" "local-exec" 
 
