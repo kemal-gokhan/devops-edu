@@ -3,32 +3,28 @@
 Ansible, Terraform, CloudFormation, Puppet   
 
 terraform = .tf 
+HCL has BLOCK AND PARAMETERS. HCL’s native and JSON syntaxes both define a mapping from input bytes to a higher-level information model.
+Hide secrets with the variables
 
 ### Conf Management:
 
-Ansible 
-
-Puppet 
-
-Saltstack
+- Ansible
+- Puppet
+- Saltstack
 
 ### Server Templating:
 
-VM or Docker Immages + Immutable Infrastructure
-
-Docker 
-
-Packer 
-
-HashiCorp  Vagrant
+- VM or Docker Immages + Immutable Infrastructure
+- Docker
+- Packer
+- HashiCorp  Vagrant
 
 ### Provisioning Tools
 
 Deploy Immutable Infrastructure + Server DB anyhign
 
-Terraform (VMWARE, AWS, GCP, AZURE, PHYSICAL)
-
-Cloudformation
+- Terraform (VMWARE, AWS, GCP, AZURE, PHYSICAL)
+- Cloudformation
 
 `curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -`
 
@@ -40,10 +36,7 @@ registry.terraform.io
 
 https://learn.hashicorp.com/collections/terraform/aws-get-started?utm_source=terraform_io_download
 
-HCL has BLOCK AND PARAMETERS
 
-
-hide secrets with the variables
 
 ### remote state
 
@@ -57,39 +50,40 @@ data "aws_ip_ranges" europena {
 
 ### Interpolation
 
-Variables: ${var.VARIABLE_NAM}
-Resources: ${aws_instance.name.id}
-Data Sources: ${data.template_file.name.rendered}
+- Variables: ${var.VARIABLE_NAM}
+- Resources: ${aws_instance.name.id}
+- Data Sources: ${data.template_file.name.rendered}
 
-key = value
-list: [0,1,2] unique and not repeatable
-map: {"key" = "value"}
+- key = value
+- list: [0,1,2] unique and not repeatable
+- map: {"key" = "value"}
 
+---------------------------------------------------------
 
-String VAR -- var.name -> ${var.VARIABLE_NAME}
-MAP VAR -- var.MAP["key"] -> ${var.AMIS["us-east-1"]}
-MAP VAR -- var.MAP["key"] -> ${lookup(var.AMIS, var.AWS_REGION)]}
-LIST VARIABLE -- var.LIST OR var.LIST[i] -> ${var.subnets[i]} OR ${join(",", var.subnets)}
+- String VAR -- var.name -> ${var.VARIABLE_NAME}
+- MAP VAR -- var.MAP["key"] -> ${var.AMIS["us-east-1"]}
+- MAP VAR -- var.MAP["key"] -> ${lookup(var.AMIS, var.AWS_REGION)]}
+- LIST VARIABLE -- var.LIST OR var.LIST[i] -> ${var.subnets[i]} OR ${join(",", var.subnets)}
 
-OUTPUTS -- module.NAME.output -> ${module.aws.vpc.vpcid}
-COUNT -- count.FIELD -> $ {count.index}
-PATH -- path.TYPE -> path.cwd(current directory) path.module (module path) path.root (root module path)
-META -- terraform.FIELD -> terraform.env  "shows active workspace"
+- OUTPUTS -- module.NAME.output -> ${module.aws.vpc.vpcid}
+- COUNT -- count.FIELD -> $ {count.index}
+- PATH -- path.TYPE -> path.cwd(current directory) path.module (module path) path.root (root module path)
+- META -- terraform.FIELD -> terraform.env  "shows active workspace"
 
-FILE -- ${file("rsakey.pub")} -> it reads rsakeypub
+- FILE -- ${file("rsakey.pub")} -> it reads rsakeypub
 
 ### FUNCTION: 
 
-basename(path) -> basename("/home/kemal/file.txt") returns file.txt
-element(list, index) -> element(module.vpc.public_subnets, count.index) returns a single element
-index(list, elem) 
-join(delim, list)
-list(item1, item2) -> sample: join(":", list("a","b","c")) -> a:b:c
-lookup(map, key [default]) -> lookup(map("k","v"), "k","not found") -> returns "v"
-map(key,value) map("k", "v", "k2", "v2") -> {"k"="v", "k2"="v2"}
-replace(string, search, replace) replace("aaab","a","b") -> bbbb
-upper(string) upper("kemal") -> KEMAL
-values(map) values(map("k","v","k2","v2") -> ["v", "v2"]
+* basename(path) -> basename("/home/kemal/file.txt") returns file.txt
+* element(list, index) -> element(module.vpc.public_subnets, count.index) returns a single element
+* index(list, elem) 
+* join(delim, list)
+* list(item1, item2) -> sample: join(":", list("a","b","c")) -> a:b:c
+* lookup(map, key [default]) -> lookup(map("k","v"), "k","not found") -> returns "v"
+* map(key,value) map("k", "v", "k2", "v2") -> {"k"="v", "k2"="v2"}
+* replace(string, search, replace) replace("aaab","a","b") -> bbbb
+* upper(string) upper("kemal") -> KEMAL
+* values(map) values(map("k","v","k2","v2") -> ["v", "v2"]
 
 
 
@@ -98,7 +92,7 @@ values(map) values(map("k","v","k2","v2") -> ["v", "v2"]
   source) - resource name
 </u>**    Arguments
 
-First
+#### First
 
 `terraform init`
 
@@ -110,17 +104,21 @@ First
 
 `terraform destroy`
 
-Official Provider: AWS,Azure,GCP
+Official Provider: 
+* AWS
+* Azure
+* GCP
 
-Verified: Heroku,digitalocean
+Verified: 
+* Heroku
+* Digitalocean
 
 Community: Ucloud,netapp-gcp
 
-`
-    7  terraform init
-    8  terraform plan
-    9  terraform apply
-`
+`terraform init`
+`terraform plan`
+`terraform apply`
+
 
 ```
 resource "aws_instance" "ec2_instance" {
@@ -274,18 +272,30 @@ Use the -var-file option with a variable file. The file can be named anything bu
 
 
 ### Terraform Commands
-terraform apply
-terraform destroy
-terraform fmt #format
-terraform get #download/update module
-terraform graph #create a visual representation
-terraform plan
-terraform push
-terraform refresh (remote)
-terraform remote #conf remote state
-terraform state #rename resource etc
-terraform validate #validate syntax
-terraform taint
+
+`terraform apply`
+
+`terraform destroy`
+
+`terraform fmt #format`
+
+`terraform get #download/update module`
+
+`terraform graph #create a visual representation`
+
+`terraform plan`
+
+`terraform push`
+
+`terraform refresh ()`
+
+`terraform remote #conf remote state`
+
+`terraform state #rename resource etc`
+
+`terraform validate #validate syntax`
+
+`terraform taint`
 
 
 map_public_ip_on_launch will give this subnet a public IP address, which means it'll be a public subnet
@@ -378,19 +388,33 @@ output "welcome_message" {
 
 after first terraform apply, it creates tfstate file to ensure it is exist or not.
 State in not optional. Sensitional information like ip's. (cpu, mem)
+Terraform must store state about your managed infrastructure and configuration. This state is used by Terraform to map real world resources to your configuration, keep track of metadata, and to improve performance for large infrastructures.
 
-Remote State.
+This state is stored by default in a local file named "terraform.tfstate", but it can also be stored remotely, which works better in a team environment.
+
+Remote State
+
+By default, Terraform stores state locally in a file named terraform.tfstate. When working with Terraform in a team, use of a local file makes Terraform usage complicated because each user must make sure they always have the latest state data before running Terraform and make sure that nobody else runs Terraform at the same time.
+
+With remote state, Terraform writes the state data to a remote data store, which can then be shared between all members of a team. Terraform supports storing state in Terraform Cloud, HashiCorp Consul, Amazon S3, Azure Blob Storage, Google Cloud Storage, Alibaba Cloud OSS, and more.
 
 ### Commands
 
-terraform validate
-terraform fmt (usefull)
-terraform show
-terraform providers
-terraform providers mirror path
-terraform output
-terraform refresh (manual update)
-sudo install graphviz -y  & terraform graph | dot -Tsvg graph.svg
+`terraform validate`
+
+`terraform fmt (usefull)`
+
+`terraform show`
+
+`terraform providers`
+
+`terraform providers mirror path`
+
+`terraform output`
+
+`terraform refresh (manual update)`
+
+`sudo install graphviz -y  & terraform graph | dot -Tsvg graph.svg`
 
 ### Mutable vs Immutable
 
@@ -457,6 +481,7 @@ lifecycle
 
 create_before_destroy
 
+```
 resource "random_pet" "super_pet" {
 
   length = var.length
@@ -470,7 +495,7 @@ resource "random_pet" "super_pet" {
   }
 
 }
-
+```
 ### Data Sources
 
 output "os-version" {
@@ -485,13 +510,13 @@ data "local_file" "os" {
 
 }
 
-### Meta Arguments
+### Meta Arguments Example
 
 depends_on / lifecycle / count
 
 length function is popular to use.
 
-### Count
+### Count Example
 
 Since we used count, the resources are now created as `list`.
 
@@ -509,7 +534,7 @@ resource "local_file" "name" {
 }
 ```
 
-variables.tf
+#### variables.tf Example
 
 ```
 variable "users" {
@@ -525,7 +550,7 @@ variable "content" {
 }
 ```
 
-For each
+### For each Example
 
 ```
 #main tf
@@ -547,7 +572,7 @@ variable "content" {
 
 `terraform state list`
 
-terraform init install plugin
+`terraform init install plugin`
 
 Version change
 
@@ -576,13 +601,13 @@ aws --endpoint http://aws:4566 iam attach-user-policy --user-name mary --poicy-a
 aws --endpoint http://aws:4566 iam create-group --group-name project-sapphire-developers 
 aws --endpoint http://aws:4566 iam add-user-to-group --user-name jack --group-name project-sapphire-developers
 
-### Remote backend
+### Remote backend Example
 
 s3 for terraform state
 dynamodb for state locking
 
-terraform state list
-terraform state show ...
+`terraform state list`
+`terraform state show ...`
 state command show state after apply
 
 terraform state list
@@ -616,11 +641,11 @@ terraform taint <provider.project.name>
 
 terraform untaint aws_instance.ProjectB
 
-### Terraform Input
+### Terraform Input Example
 
-terraform import <resource_type>.<resource_name> <attribute>
+`terraform import <resource_type>.<resource_name> <attribute>`
 
-terraform plan
+`terraform plan`
 
 modules provide ready config .tf files to deliver asap.
 
@@ -664,11 +689,11 @@ resource "aws_iam_user" "cloud" {
 }
 ```
 
-terraform workspace list
+`terraform workspace list`
 
 default is  the default workspace.
 
-terraform workspace select <name>
+`terraform workspace select <name>`
 
 
 
