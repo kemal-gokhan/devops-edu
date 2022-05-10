@@ -1,3 +1,21 @@
+Önemli dosyalar / dizinler:
+/etc/ssh/sshd_config
+/etc/hosts.allow
+/etc/shadow
+/etc/passwd
+/etc/group
+sudoers dosyasına erişim sağlamak için sudo visudo veya nano /etc/sudoers 
+
+
+
+
+
+
+
+
+
+
+
 Dizin:
 / /bin Temel komut dosyalarını barındıran dizindir. ping, ls, cp, cat vs.
 /boot Kernel’in boot etmesi gereken bütün dosya ve dizinleri içerir. Bu
@@ -74,7 +92,8 @@ find, Linux dosya sisteminin içerisinde aradığını bulmak için kullanılan 
 biridir. Dosya tipleri, tarih, izin, grup, dosya boyutu gibi kriterlere göre dosya sisteminde
 aramalar yapabilir. 
 find . -name *.gz (find . dizininde ismi *.gz olanlar)
-
+w , sisteme login olan kullanıcıların ayrıntılı listesini verir. 
+last -x komutu ile sistem çalışma düzeyleri ve kapatma bilgileri gösterilir.
 
 
 Temel Komutlar:
@@ -84,7 +103,8 @@ rm -rf komutu ile dosya ve dizinler dahil bütün her şeyi silersiniz. -r recur
 anlamındadır.
 rmdir (Remove Directory) : Bir dizini silmek isterseniz rmdir komutunu kullanabilirsiniz.
 * = hepsi
-
+su, komutu kullanıcılar arası geçiş için kullanılır. ozgur kullanıcısı ile su komutunu kullanarak
+aydin kullanıcısı olarak login olabiliriz.
 
 
 
@@ -147,11 +167,125 @@ sort, varsayılan olarak dosya içeriğini alfabetik sıraya dizer. Ancak belirl
 bu sıralamayı yapabilir
 sed: değiştir. cat test.txt | sed "s/Ali/Ahmet/g" (ali->ahmet all file)
 
+Servis Kontrolü:
+systemctl status nginx komutu bize nginx servisinin durumu hakkında bilgi verir.
+systemctl restart nginx komutu nginx servisinin yeniden başlamasını sağlayacaktır.
+systemctl stop nginx komutu ile nginx servisi duracaktır. 
+systemctl start nginx komutu ile nginx servisi başlatılır.
+systemctl enable nginx komutu nginx servisinin sunucu açılırken otomatik olarak açılması
+için kullanılır.
+systemctl disable nginx komutu ise sunucu açılırken nginx servisinin otomatik olarak
+başlamamasını sağlar.
 
+SSH:
+İşe ilk olarak root kullanıcısının SSH erişimini kapatıp root yetkilerine sahip bir kullanıcı
+oluşturmakla başlıyoruz. Root kullanıcısını kapatmak saldırganların amacına ulaşmasını
+engelleyecek savunma stratejilerinden bir tanesidir. 
+useradd -m KEMAL komutuyla kullanıcı oluşturuyoruz. -m belirteci oluşturduğumuz
+kullanıcı için aynı zamanda home klasörü altında bir dosya oluştur anlamına geliyor.
+passwd KEMAL komutu oluşturduğumuz kullanıcıya parola atıyoruz. 
+usermod -aG sudo KEMAL komutu ile admin grubuna kullanıcıyı dahil ediyoruz
+ssh-keygen
+ssh-copy-id
 
+sudo ufw allow from 192.168.1.209 to any port 5722
+ufw deny from any to any port 5722
+scp kullanıcı_adı@host_ismi:kopyalacak_dosyanın_adi kullanıcı_adı@host_ismi:kopyalanacağı_yer
 
+Yetkilendirme:
+chmod
+Numara İzin Tipi Hesaplama Sembol
+0 Deny 0 ---
+1 Execute 1 --x
+2 Write 2 -w-
+3 Execute+Write 1+2 -wx
+4 Read 4 r--
+5 Read+Execute 4+1 r-x
+6 Read+Write 4+2 rw-
+7 Read+Write+Execute 4+2+1 rwx
 
+Operatör veya İşaret Tanım
++ Dosya veya dizine izin ekler.
+- Dosya veya dizinden izni kaldırır.
+= Daha önceden ayarlanan izinlerin üzerine yazar.
+u Kullanıcı \ Sahip (User \ Owner)
+g Grup (Group)
+o Diğerleri (Other)
+a Herkes (all)
 
+chown username:groupname filename Bir dosyanın sahipliğini değiştirmek için chown komutu kullanılır. chown komutu ile birlikte
+dosyanın yeni sahibi ve grubunu yazdıktan sonra sahipliği değişecek dosya belirtilir.
+chgrp komutu dosya ve dizinin grup sahipliğini değiştirmek için kullanılır.
+sudo chgrp system script
+İzin Numeric Sembolik Tanım
+SUID 4 u+s Kullanıcı dosya sahibinin izinleri ile işlem yapar.
+SGID 2 g+s Kullanıcı grup sahibinin izinleri ile işlem yapar.
+Sticky Bit 1 o+t Other kullanıcıları dosya içeriğini silemez.
+SUID, SGID ve Sticky Bit için izinler Sembolik izinlere benzer şekilde atanır.
+chmod u+s filename #Kullanıcılar için özel izin
+chmod g+s filename #Grup için özel izin
+chmod o+t filename #Sticky Bit
+
+Kullanıcı Yönetimi:
+Sistem üzerindeki UDI (User ID) ve GID (Group ID) değerleri kullanıcıların alfabetik isimlerini
+temsil ederler. root kullanıcısının UID ve GID değerleri 0:0 ile gösterilir. Normal kullanıcıların
+UID değerleri 1000’den başlar.
+useradd KEMAL ( Home dizini oluşmadı. grup yine hasan oldu)
+useradd -m -g network -c "Network Admin" -u 2000 -s "/bin/bash" -d /home/ahmet ahmet
+komutu ile
+-m ile kullanıcı adıyla bir home dizini altında bir dizin oluşturduk.
+-g ile kullanıcıyı network isimli bir gruba ekledik.
+-c ile kullanıcı için bir açıklama girdik.
+-u ile bir UID atadık.
+-s ile komut satırının bash olarak ayarlanmasını sağladık.
+-d ile home dizinini de kullanıcının dizinini ayarladık.
+-p ile kullanıcıya parola ataması yaptık.
+userdel komutu ile kullanıcı silinir ancak sadece kullanıcı silinir. Kullanıcının kendisi ve
+verilerinin tamamını silemek istersek –r argümanını kullanmak gerekir.
+Kullanıcı bilgileri /etc/passwd dosyasında depolanır.
+Kullanıcı parolaları güvenlik nedeniyle /etc/shadow
+dosyası içinde şifreli bir şekilde tutulur.
+passwd username ile kullanıcıya parola atanır.
+chage komutu parola polikası ilgili bilgileri görüntülemenizi ve değişiklikler yapmanızı sağlar.
+
+Her ne kadar passwd içersinde belirli ayarları yapıyor olsakta parolaların daha karmaşık olması için
+PAM modülü kullanılabilir. PAM modülü, parola değişimi, expire süresi gibi ayarların yapılmasına da
+izin verir. PAM modülünü kullanmak için yüklenmelidir.
+apt -y install libpam-pwquality
+PAM modülü parola yönetimi için temel olarak 2 farklı dosyaya sahiptir.
+/etc/login.defs dosyası ile parolanın sona erme süresi (PASS_MAX_DAYS), sona erme süresinden
+önceki hatırlatılacak gün sayısı (PASS_WARN_AGE) ve parolanın kullanılabileceği gün sayısı
+(PASS_MIN_DAYS) gibi ayarlar yapılır. Yine bu ayarların uygulanacağı kullanıcı UID değerleri de bu
+dosyada belirtilir.
+/etc/security/pwquality.conf dosyası ile kullanıcılara karmaşık parolalar oluşturmasını sağlamak için
+parola uzunluğu, sayısı ve harf sayısı, parolanın içermeyeceği karakterler gibi yapılandırmalar
+yapılabilir.
+Değişken Açıklama
+usercheck=1 Parola için kullanıcı isminin kontrolünü yapar
+maxrepeat=1 Yeni şifrede kullanılabilecek ardışık karakter sayısı
+minclass=3 Şifre içinde bulunacak minimum karakter sınıfını (Büyük, küçük harf, sayı
+ve özel karakterler) tanımlar.
+ocredit=1 Şifrede bulunacak maksimum özel karakter sayısı
+ucredit=1 Şifrede bulunacak maksimum büyük harf sayısı
+lcredit=1 Şifrede bulunacak maksimum küçük harf sayısı
+dcredit=1 Şifrede bulunacak maksimum rakam sayısı
+minlen=8 Şifrenin minimum karakter uzunluğu
+difok=1 Yeni şifrede, eski şifrenin sahip olduğu karakterlerden kullanabilme sayısı
+groupadd komutu grup eklemek için kullanılır.
+groupdel komutu grup silmek için kullanılır.
+gpasswd komutu gruba bir parola oluşturur.
+useradd -G Kullanıcı oluştururken bir gruba kullanıcıya ekler.
+deluser - gruptan kullanıcı silmek için kullanılır.
+Usermod Linux sistemlerde varolan kullanıcılar üzerinde değişiklik yapmak için kullanılan araçtır.
+Usermod farklı argümanlar alarak kullanıcı adı, grubu, dizini gibi bilgileri değiştirebilir.
+-c argümanı ile kullanıcıya bir açıklama, -d ile dizin değişikliği ve -s ile shell özelliklerini
+değiştirdik.
+sudoers:
+root ALL=(ALL:ALL) ALL – Kullanıcı adı
+root ALL=(ALL:ALL) ALL – Sunucunun tamamındaki yetkilendirme
+root ALL=(ALL:ALL) ALL – Kullanıcıları tanımlar.
+root ALL=(ALL:ALL) ALL – Grupları tanımlar.
+root ALL=(ALL:ALL) ALL – Komutlarının tamamını tanımlar.
 
 
 
