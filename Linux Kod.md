@@ -1,4 +1,4 @@
-**Önemli dosyalar / dizinler:**
+Önemli dosyalar / dizinler:
 /etc/ssh/sshd_config
 /etc/hosts.allow
 /etc/shadow
@@ -8,7 +8,7 @@ sudoers dosyasına erişim sağlamak için sudo visudo veya nano /etc/sudoers
 
 ---
 
-**Dizin:**
+Dizin:
 / /bin Temel komut dosyalarını barındıran dizindir. ping, ls, cp, cat vs.
 /boot Kernel’in boot etmesi gereken bütün dosya ve dizinleri içerir. Bu
 dizinin silinmesi halinde sistem bir daha açılamaz hale gelir.
@@ -38,7 +38,7 @@ barındıran dizindir.
 
 ----
 
-**Profil Dosyaları:**
+Profil Dosyaları:
 bash_history dosyası oturumunuz açıkken girdiğiniz komutlar, oturumunuzu kapatırken bu
 dosyaya yazılır. Bu şekilde girdiğiniz komutlar hafızada tutulur. Önceden yaptığınız işlemleri
 veya kullanıp hatırlamadığınız komutlara bakmak için çok faydalıdır. Oturumunuz, uygun
@@ -58,9 +58,9 @@ satırına alias’ları yerleştirebiliriz. Netstat –an komutu için aşağı
 
 ----
 
-**Dosya Tipleri:**
+Dosya Tipleri:
 
-- ****: Regular File
+- : Regular File
   d : Directory
   c : Character Device Fileb : Block Device File
   s : Local Socket File
@@ -69,15 +69,15 @@ satırına alias’ları yerleştirebiliriz. Netstat –an komutu için aşağı
 
   ----
 
-**SHELL:**
+SHELL:
 
-- ****Alias
+- Alias
 - Internal Komutlar
 - External Komutlar
 
 ----
 
-**Keşif:**
+Keşif:
 which fdisk
 man cp
 man -k password | grep 8
@@ -98,7 +98,7 @@ last -x komutu ile sistem çalışma düzeyleri ve kapatma bilgileri gösterilir
 
 -----
 
-**Temel Komutlar:**
+Temel Komutlar:
 
 cp -r backupfiles/ newbackupfiles "Bir dizin içindeki bütün dosyaların ve dizinlerin başka bir dizine kopyasını almak isterseniz -r
 argümanını kullanmalısınız."
@@ -134,7 +134,7 @@ Operatorler:
 
 
 
-**Değişken:**
+Değişken:
 bash ->  MRB=”Merhaba Linux! -> $MRB ---- bash kapanınca kaybolur.
 environment -> export MRB=MERHABA -> Bu değişkenleri kalıcı olarak tutmak için .profie veya .bashrc dosyalarının içlerine
 tanımlayabiliriz.
@@ -161,7 +161,7 @@ Ctrl+V Bir sayfa aşağı iner
 
 -----
 
-**Görüntüleme:**
+Görüntüleme:
 less komutu: ile görüntülemek istediğiniz dosyanın ilk satırından başlayarak görüntüleme sağlanır. 
 / (slash) ile dosya içeriğinde arama yapılabilir.
 more ile yine dosyanın en başından itibaren gösterime başlanır.
@@ -171,7 +171,7 @@ tail, varsayılan olarak en son 10 satırı gösterir.
 
 -----
 
-**Filtre:**
+Filtre:
 grep, Bir ekran çıktısı veya dosya içeriği içinde istediğiniz bir tanımı grep ile filtreleyebilirsiniz.
 cut, bir dosyanın içerisindeki kolonları seçip filtreleyebilir. Aşağıdaki komutumuzda
 /etc/passwd isimli dosyadan –f1,7 ile satırın 1nci ve 7nci sütununu, head -4 ile en son 4
@@ -195,7 +195,7 @@ başlamamasını sağlar.
 
 
 
-**SSH:**
+SSH:
 İşe ilk olarak root kullanıcısının SSH erişimini kapatıp root yetkilerine sahip bir kullanıcı
 oluşturmakla başlıyoruz. Root kullanıcısını kapatmak saldırganların amacına ulaşmasını
 engelleyecek savunma stratejilerinden bir tanesidir. 
@@ -226,7 +226,7 @@ Numara İzin Tipi Hesaplama Sembol
 
 
 
-**Operatör veya İşaret Tanım**
+Operatör veya İşaret Tanım
 
 + Dosya veya dizine izin ekler.
 - Dosya veya dizinden izni kaldırır.
