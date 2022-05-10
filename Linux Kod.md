@@ -1,0 +1,311 @@
+**Önemli dosyalar / dizinler:**
+/etc/ssh/sshd_config
+/etc/hosts.allow
+/etc/shadow
+/etc/passwd
+/etc/group
+sudoers dosyasına erişim sağlamak için sudo visudo veya nano /etc/sudoers 
+
+---
+
+**Dizin:**
+/ /bin Temel komut dosyalarını barındıran dizindir. ping, ls, cp, cat vs.
+/boot Kernel’in boot etmesi gereken bütün dosya ve dizinleri içerir. Bu
+dizinin silinmesi halinde sistem bir daha açılamaz hale gelir.
+/dev Fiziksel donanıma erişim gerekli dosyaları barındırır. Boot
+sırasında kullanılır. Örn: /dev/sda
+/etc Sistemde kullanılan tüm servis ve programlarının yapılandırma
+dosyalarını içerir. Örn: /etc/resolv.conf
+/home Lokal kullanıcıların dosyalarının barındırıldığı ana dizindir.
+/lib, /lib64 /boot, /bin ve /sbin tarafından kullanılan kütüphaneleri barındırırlar.
+/media, /mnt Dosya sistemine dahil edilen harici depolama cihazları kullanılır.
+/opt Uygulamaların opsiyonel olarak kullandığı paketler için kullanılır.
+/proc Sistem çalışan işlemler ve kaynaklar hakkında bilgileri içerir. Örn:
+/proc/uptime
+/root Root kullanısının dosya dizinidir. / ana dizin ile karıştırılmamalıdır.
+/snap Uygulamalar için yeni nesil paket sistemidir.
+/run En son boot işleminde sonra oluşan kullanıcı ve işlem bilgilerini
+içerir.
+/sbin Sistem administratorleri tarafından kullanılan komut dosyalarını
+barındırır. Örn: iptables, reboot, fdisk, ifconfig
+/srv HTTP, NFS, FTP gibi servislerle ilişkili veriler için kullanılır.
+/tmp Geçici dosyaların depolanması için kullanılır. Boot sırasında bu
+alandaki dosyalar silinir.
+/usr Programların, dosyaları ve dokümanları için kullanılan alt dizinlerini
+barındıran dizindir.
+/var Dinamik olarak boyutu değişen log, mailbox gibi dosyaları
+barındıran dizindir.
+
+----
+
+**Profil Dosyaları:**
+bash_history dosyası oturumunuz açıkken girdiğiniz komutlar, oturumunuzu kapatırken bu
+dosyaya yazılır. Bu şekilde girdiğiniz komutlar hafızada tutulur. Önceden yaptığınız işlemleri
+veya kullanıp hatırlamadığınız komutlara bakmak için çok faydalıdır. Oturumunuz, uygun
+olmayan bir şekilde kapanırsa komutlar kaydedilmez.
+.bash_logout dosyası sunucudan çıkarken geçici dosyaları sil, login süresini kaydet gibi
+yapılmasını istediğiniz komutlar yerleştirilerek çalıştırılır. Sunucudan çıkarken bu dosya
+otomatik olarak çalıştırılır. En sık kullanılan komut clear ‘dır.
+bashrc dosyası, sunucuda açık bir oturumunuz varsa ve yeni bir terminal ekranı açarak
+sunucuya ikinci bir bağlantı yaptığınızda çalıştırılır. Her oturum açtığınızda çalışarak,
+oturumunuz için yapılan ayarları getirir.
+.profile dosyası, sunucuya console veya uzak bağlantı yapılarak giriş sağlandığında
+çalıştırılır. Kullanıcı için tanımlanan ortam değişkenlerini ve yapılandırmalarını tutar.
+ssh oturumunuzda kullandığınız SSH anahtarlarının bulunduğu dizindir.
+.cache dosyası kullanıcıların ön bellekteki dosyalarını saklar.
+.bashrc veya .profile dosyalarına alias eklemek için .bashrc veya .profile dosyalarının en alt
+satırına alias’ları yerleştirebiliriz. Netstat –an komutu için aşağıdaki gibi bir alias girelim.
+
+----
+
+**Dosya Tipleri:**
+
+- ****: Regular File
+  d : Directory
+  c : Character Device Fileb : Block Device File
+  s : Local Socket File
+  p : Named Pipe
+  l : Symbolic Link
+
+  ----
+
+**SHELL:**
+
+- ****Alias
+- Internal Komutlar
+- External Komutlar
+
+----
+
+**Keşif:**
+which fdisk
+man cp
+man -k password | grep 8
+info fdisk
+whatis whatis Bir komutun tanım çıktısını verir
+whereis whereis  komutun yolunu gösterir
+history
+uptime : Sunucunun açıldığı zamanı, ne kadar süredir açık olduğunu, login olan kullanıcı
+sayısını gösterir.
+file : Dosyaların tiplerini tanımlamak için kullanılır. -s argümanı ile özel dosyalar hakkında
+bilgi verir.
+find, Linux dosya sisteminin içerisinde aradığını bulmak için kullanılan en etkili komutlardan
+biridir. Dosya tipleri, tarih, izin, grup, dosya boyutu gibi kriterlere göre dosya sisteminde
+aramalar yapabilir. 
+find . -name *.gz (find . dizininde ismi *.gz olanlar)
+w , sisteme login olan kullanıcıların ayrıntılı listesini verir. 
+last -x komutu ile sistem çalışma düzeyleri ve kapatma bilgileri gösterilir.
+
+-----
+
+**Temel Komutlar:**
+
+cp -r backupfiles/ newbackupfiles "Bir dizin içindeki bütün dosyaların ve dizinlerin başka bir dizine kopyasını almak isterseniz -r
+argümanını kullanmalısınız."
+rm -rf komutu ile dosya ve dizinler dahil bütün her şeyi silersiniz. -r recursive ve -f force
+anlamındadır.
+rmdir (Remove Directory) : Bir dizini silmek isterseniz rmdir komutunu kullanabilirsiniz.
+
+* = hepsi
+  su, komutu kullanıcılar arası geçiş için kullanılır. ozgur kullanıcısı ile su komutunu kullanarak
+  aydin kullanıcısı olarak login olabiliriz.
+
+Operatorler:
+
+> işareti dosyanın içindekilerinin üzerine yazar. Eğer dosya içerisinde daha önceden bir veri
+> varsa bu bilgiler silinir ve yönlendirdiğiniz bilgiler yazılır.
+> ‘ ‘ ve “ “ : Komut satırında yapacağınız girişlerin arasındaki boşlukların kaldırılmasını engeller, ayrık
+> isimli dosya ve dizin adları oluşturmanıza veya bu dosya ve dizinleri kullanmanızı sağlar.
+> ; noktalı virgül: İki ayrı komut serisini sırayla çalıştırır. Komutların başarılı olarak çalışıp çalışmaması bir
+> diğer komutu etkilemez.
+> & Ampersand: Komutun sonuna koyularak komutun arka planda çalışması sağlanır. 
+> && Çift Ampersand: Ve anlamında kullanılır.
+> | pipe : Çıktıların içinde istediğiniz bir veriyi yakalamak, çıktı boyutu ayarlamak için komutlardan önce kullanılır.
+> || Çift Pipe: Veya anlamında kullanılır.
+
+# Diyez: Girilen komuta veya yapılandırma dosyalarının içerisine yorum satırı girmek için kullanılır
+
+\ backslash: Kaçış
+~ Tilde: Home
+
+
+
+----
+
+
+
+**Değişken:**
+bash ->  MRB=”Merhaba Linux! -> $MRB ---- bash kapanınca kaybolur.
+environment -> export MRB=MERHABA -> Bu değişkenleri kalıcı olarak tutmak için .profie veya .bashrc dosyalarının içlerine
+tanımlayabiliriz.
+shell -> $USER otomatik olarak shellde yüklü gelir. 
+
+Vi ve Vim Cheat Sheet
+i İmlecin olduğu yerden yazmaya başlar.I İmlecin bulunduğu satırın başından yazmaya başlar.
+1G İlk satıra gider.
+G Son satıra gider.
+A Satır sonuna gider.
+dd İmlecin bulunduğu satırı siler.
+:x Değişiklikleri kaydeder ve çıkar.
+:q Değişiklikleri kaydetmeden çıkar.
+:wq! Değişiklikleri kaydeder ve çıkar.
+/ Dosya içinde arama yapar.
+
+Nano Cheat Sheet
+Ctrl+S Dosyadan çıkmadan kaydeder.
+Ctrl+X Dosyadan çıkar.
+Ctrl+A Satır başı yapar.
+Ctrl+E Satır sonu yapar.
+Ctrl+Y Bir sayfa yukarı çıkar.
+Ctrl+V Bir sayfa aşağı iner
+
+-----
+
+**Görüntüleme:**
+less komutu: ile görüntülemek istediğiniz dosyanın ilk satırından başlayarak görüntüleme sağlanır. 
+/ (slash) ile dosya içeriğinde arama yapılabilir.
+more ile yine dosyanın en başından itibaren gösterime başlanır.
+cat komutu dosya içeriğini ekranda en son satırdan itibaren olacak şekilde ekrana yazdırır.
+head, varsayılan olarak bir dosyanın ilk on satırını gösterir.
+tail, varsayılan olarak en son 10 satırı gösterir. 
+
+-----
+
+**Filtre:**
+grep, Bir ekran çıktısı veya dosya içeriği içinde istediğiniz bir tanımı grep ile filtreleyebilirsiniz.
+cut, bir dosyanın içerisindeki kolonları seçip filtreleyebilir. Aşağıdaki komutumuzda
+/etc/passwd isimli dosyadan –f1,7 ile satırın 1nci ve 7nci sütununu, head -4 ile en son 4
+satırını getirmesini sağladık. ( cut -d: -f1,7 /etc/passwd | head -4 
+cat test.txt | tr  "a,z" "A,Z"   "tr ile harf değiştir"
+sort, varsayılan olarak dosya içeriğini alfabetik sıraya dizer. Ancak belirli sütunlara göre de
+bu sıralamayı yapabilir
+sed: değiştir. cat test.txt | sed "s/Ali/Ahmet/g" (ali->ahmet all file)
+
+Servis Kontrolü:
+systemctl status nginx komutu bize nginx servisinin durumu hakkında bilgi verir.
+systemctl restart nginx komutu nginx servisinin yeniden başlamasını sağlayacaktır.
+systemctl stop nginx komutu ile nginx servisi duracaktır. 
+systemctl start nginx komutu ile nginx servisi başlatılır.
+systemctl enable nginx komutu nginx servisinin sunucu açılırken otomatik olarak açılması
+için kullanılır.
+systemctl disable nginx komutu ise sunucu açılırken nginx servisinin otomatik olarak
+başlamamasını sağlar.
+
+-----
+
+
+
+**SSH:**
+İşe ilk olarak root kullanıcısının SSH erişimini kapatıp root yetkilerine sahip bir kullanıcı
+oluşturmakla başlıyoruz. Root kullanıcısını kapatmak saldırganların amacına ulaşmasını
+engelleyecek savunma stratejilerinden bir tanesidir. 
+useradd -m KEMAL komutuyla kullanıcı oluşturuyoruz. -m belirteci oluşturduğumuz
+kullanıcı için aynı zamanda home klasörü altında bir dosya oluştur anlamına geliyor.
+passwd KEMAL komutu oluşturduğumuz kullanıcıya parola atıyoruz. 
+usermod -aG sudo KEMAL komutu ile admin grubuna kullanıcıyı dahil ediyoruz
+ssh-keygen
+ssh-copy-id
+
+sudo ufw allow from 192.168.1.209 to any port 5722
+ufw deny from any to any port 5722
+scp kullanıcı_adı@host_ismi:kopyalacak_dosyanın_adi kullanıcı_adı@host_ismi:kopyalanacağı_yer
+
+Yetkilendirme:
+chmod
+Numara İzin Tipi Hesaplama Sembol
+0 Deny 0 ---
+1 Execute 1 --x
+2 Write 2 -w-
+3 Execute+Write 1+2 -wx
+4 Read 4 r--
+5 Read+Execute 4+1 r-x
+6 Read+Write 4+2 rw-
+7 Read+Write+Execute 4+2+1 rwx
+
+---
+
+
+
+**Operatör veya İşaret Tanım**
+
++ Dosya veya dizine izin ekler.
+- Dosya veya dizinden izni kaldırır.
+  = Daha önceden ayarlanan izinlerin üzerine yazar.
+  u Kullanıcı \ Sahip (User \ Owner)
+  g Grup (Group)
+  o Diğerleri (Other)
+  a Herkes (all)
+
+chown username:groupname filename Bir dosyanın sahipliğini değiştirmek için chown komutu kullanılır. chown komutu ile birlikte
+dosyanın yeni sahibi ve grubunu yazdıktan sonra sahipliği değişecek dosya belirtilir.
+chgrp komutu dosya ve dizinin grup sahipliğini değiştirmek için kullanılır.
+sudo chgrp system script
+İzin Numeric Sembolik Tanım
+SUID 4 u+s Kullanıcı dosya sahibinin izinleri ile işlem yapar.
+SGID 2 g+s Kullanıcı grup sahibinin izinleri ile işlem yapar.
+Sticky Bit 1 o+t Other kullanıcıları dosya içeriğini silemez.
+SUID, SGID ve Sticky Bit için izinler Sembolik izinlere benzer şekilde atanır.
+chmod u+s filename #Kullanıcılar için özel izin
+chmod g+s filename #Grup için özel izin
+chmod o+t filename #Sticky Bit
+
+Kullanıcı Yönetimi:
+Sistem üzerindeki UDI (User ID) ve GID (Group ID) değerleri kullanıcıların alfabetik isimlerini
+temsil ederler. root kullanıcısının UID ve GID değerleri 0:0 ile gösterilir. Normal kullanıcıların
+UID değerleri 1000’den başlar.
+useradd KEMAL ( Home dizini oluşmadı. grup yine hasan oldu)
+useradd -m -g network -c "Network Admin" -u 2000 -s "/bin/bash" -d /home/ahmet ahmet
+komutu ile
+-m ile kullanıcı adıyla bir home dizini altında bir dizin oluşturduk.
+-g ile kullanıcıyı network isimli bir gruba ekledik.
+-c ile kullanıcı için bir açıklama girdik.
+-u ile bir UID atadık.
+-s ile komut satırının bash olarak ayarlanmasını sağladık.
+-d ile home dizinini de kullanıcının dizinini ayarladık.
+-p ile kullanıcıya parola ataması yaptık.
+userdel komutu ile kullanıcı silinir ancak sadece kullanıcı silinir. Kullanıcının kendisi ve
+verilerinin tamamını silemek istersek –r argümanını kullanmak gerekir.
+Kullanıcı bilgileri /etc/passwd dosyasında depolanır.
+Kullanıcı parolaları güvenlik nedeniyle /etc/shadow
+dosyası içinde şifreli bir şekilde tutulur.
+passwd username ile kullanıcıya parola atanır.
+chage komutu parola polikası ilgili bilgileri görüntülemenizi ve değişiklikler yapmanızı sağlar.
+
+Her ne kadar passwd içersinde belirli ayarları yapıyor olsakta parolaların daha karmaşık olması için
+PAM modülü kullanılabilir. PAM modülü, parola değişimi, expire süresi gibi ayarların yapılmasına da
+izin verir. PAM modülünü kullanmak için yüklenmelidir.
+apt -y install libpam-pwquality
+PAM modülü parola yönetimi için temel olarak 2 farklı dosyaya sahiptir.
+/etc/login.defs dosyası ile parolanın sona erme süresi (PASS_MAX_DAYS), sona erme süresinden
+önceki hatırlatılacak gün sayısı (PASS_WARN_AGE) ve parolanın kullanılabileceği gün sayısı
+(PASS_MIN_DAYS) gibi ayarlar yapılır. Yine bu ayarların uygulanacağı kullanıcı UID değerleri de bu
+dosyada belirtilir.
+/etc/security/pwquality.conf dosyası ile kullanıcılara karmaşık parolalar oluşturmasını sağlamak için
+parola uzunluğu, sayısı ve harf sayısı, parolanın içermeyeceği karakterler gibi yapılandırmalar
+yapılabilir.
+Değişken Açıklama
+usercheck=1 Parola için kullanıcı isminin kontrolünü yapar
+maxrepeat=1 Yeni şifrede kullanılabilecek ardışık karakter sayısı
+minclass=3 Şifre içinde bulunacak minimum karakter sınıfını (Büyük, küçük harf, sayı
+ve özel karakterler) tanımlar.
+ocredit=1 Şifrede bulunacak maksimum özel karakter sayısı
+ucredit=1 Şifrede bulunacak maksimum büyük harf sayısı
+lcredit=1 Şifrede bulunacak maksimum küçük harf sayısı
+dcredit=1 Şifrede bulunacak maksimum rakam sayısı
+minlen=8 Şifrenin minimum karakter uzunluğu
+difok=1 Yeni şifrede, eski şifrenin sahip olduğu karakterlerden kullanabilme sayısı
+groupadd komutu grup eklemek için kullanılır.
+groupdel komutu grup silmek için kullanılır.
+gpasswd komutu gruba bir parola oluşturur.
+useradd -G Kullanıcı oluştururken bir gruba kullanıcıya ekler.
+deluser - gruptan kullanıcı silmek için kullanılır.
+Usermod Linux sistemlerde varolan kullanıcılar üzerinde değişiklik yapmak için kullanılan araçtır.
+Usermod farklı argümanlar alarak kullanıcı adı, grubu, dizini gibi bilgileri değiştirebilir.
+-c argümanı ile kullanıcıya bir açıklama, -d ile dizin değişikliği ve -s ile shell özelliklerini
+değiştirdik.
+sudoers:
+root ALL=(ALL:ALL) ALL – Kullanıcı adı
+root ALL=(ALL:ALL) ALL – Sunucunun tamamındaki yetkilendirme
+root ALL=(ALL:ALL) ALL – Kullanıcıları tanımlar.
+root ALL=(ALL:ALL) ALL – Grupları tanımlar.
+root ALL=(ALL:ALL) ALL – Komutlarının tamamını tanımlar.
