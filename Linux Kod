@@ -309,3 +309,85 @@ root ALL=(ALL:ALL) ALL – Sunucunun tamamındaki yetkilendirme
 root ALL=(ALL:ALL) ALL – Kullanıcıları tanımlar.
 root ALL=(ALL:ALL) ALL – Grupları tanımlar.
 root ALL=(ALL:ALL) ALL – Komutlarının tamamını tanımlar.
+
+Yönetim:
+ps -a komutu ile sunucuya yapılan tüm bağlantılar görüntülenir.
+ps –e komutu işlem listesi gösterilir
+ps -aux işlem listesini detaylandırır.
+USER : İşlemi çalıştıran kullanıcıyı gösterir.
+PID (Process ID) : İşlemin ID’sidir. İşlemi durdurup, başlatmak ve takip etmek için bu ID
+kullanılır.
+%CPU : İşlemci kullanım miktarını gösterir.
+%MEM : Bellek kullanım miktarını gösterir.
+VSZ (Virtual Memory Size) : İşlemin erişebileceği bellek miktarıdır.
+RSS (Resident Set Size) : İşleme atanan bellek miktarıdır.
+TTY : İşlemin gerçekleştiği terminal tipini gösterir.
+STAT (Status) : İşlemin durumunu gösterir.
+İşlemi fg (foreground) komut ile önyüze alınır.
+sudo nice -n 7 dd if=/dev/zero of=/dev/null
+sudo renice 11 –p 1939
+kill 1791
+top aracı bütün Linux sistemlerin vazgeçilmez performas görüntüleme aracıdır.
+Gösterge Açıklaması
+us Kullanıcıların çalıştırdığı işlemlerin yüzdesi
+sy Kernel mode’da sistem çağrıları ve driver erişimleri için harcanan süre.
+ni Öncelik verilen işlemler için harcanan zamanın yüzdesi
+id İşlemcinin boşta geçirdiği sürenin yüzdesiwa İşlemcinin disk istekleri için beklediği süredir. Yüksek değerler düşük storage
+performansını işaret eder.
+hi İşlemcinin donanım kesintileri için harcadığı süredir. Bu değerin yüksek olması
+donanım tarafında problemlerin olduğunun göstergesidir.
+si İşlemcinin yazılım tarafındaki kesintiler için harcadığı süredir. Bu değerin
+yüksek olması yazılım tarafında problemlerin olduğunu gösterir.
+st Eğer bir sanallaştırma ortamınız varsa buradaki değer sanal sunucuların
+kullanım yüzdesini gösterir.
+top çalıştıktan sonra f tuşuna basarsanız top çıktısındaki işlem görünüm kolonlarını
+değiştirebilirsiniz.
+free komutu bellek kullanımıyla ilgili bilgiler verir. Mem fiziksel bellek, Swap ise Virtual Bellek
+miktarını gösterir. free komutu ile çeşitli argümanlar kullanarak miktarların farklı ölçü
+birimleriyle gösterilmesi sağlanabilir.
+vmstat ise diğer bir yararlı komuttur. Sunucunun en son reboot ettiği zamandan itibaren
+ortalama bellek, I/O ve CPU kullanımlarını raporlar
+htop ise top ‘a nazaran daha renkli ve ek özellikleri olan bir araçtır. Ancak temel olarak top
+ile aynı bilgileri verir.
+F5 tuşuna bastığınızda işlemlerin ağaç yapısındaki görüntüsünü elde edersiniz. Bu çalışan
+işlemin kök dizinine kadar gitmenize izin verir.
+F6 ile ekranda gösterilen kolonlara göre işlemleri sıraya dizebilirsiniz.
+F9 ile belirlediğiniz işlemi sonlandırabilirsiniz.
+F10 ile htop’dan çıkabilirsiniz
+iostat ve pidstat
+iostat ve pidstat araçlarını kullanmak için sunucunuzda sysstat aracının yüklü olması
+gerekiyor. Systat sistem performansını monitor eden shell’de çalışan en iyi monitoring
+araçlarından bir tanesidir. Disk bölümlerinin giriş çıkış istatistiklerini (I/O), process’lerin
+kaynak kullanımlarını ve sistemdeki tüm olayları toplayıp raporlayabilir.
+Eğer yüklü değilse apt install sysstat komutuyla yükleyebilirsiniz.
+
+Cockpit Kullanımı
+Cockpit, linux (Redhat, Centos, Ubuntu, Debian, CoreOS, Fedora) sunucuları yönetmek için
+web tabanlı bir arayüzdür. Sistem kaynaklarının izlenmesine ve yapılacak konfigürasyonun
+kolaylıkla ayarlanmasını sağlar. Kullanılmadığı zaman herhangi bir kaynak tüketmez ve
+üzerinde veri barındırmaz.
+Cockpit uygulamasını sudo apt install cockpit –y komutu ile yüklüyoruz.
+sudo systemctl start cockpit komutu ile uygulamayı başlatıyoruz.
+sudo systemctl enable cockpit komutu ile sunucu yeniden başladığında uygulamanın da
+otomatik olarak başlamasını sağlıyoruz.
+Bilgisayarınızın browserından http://sunucu_ipiniz:9090 adresine gidelim.
+
+
+Bilgiler özgür aydın'ın kitabından alınmıştır.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
