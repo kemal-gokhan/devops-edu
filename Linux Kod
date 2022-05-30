@@ -20,8 +20,7 @@ dosyalarını içerir. Örn: /etc/resolv.conf
 /lib, /lib64 /boot, /bin ve /sbin tarafından kullanılan kütüphaneleri barındırırlar.
 /media, /mnt Dosya sistemine dahil edilen harici depolama cihazları kullanılır.
 /opt Uygulamaların opsiyonel olarak kullandığı paketler için kullanılır.
-/proc Sistem çalışan işlemler ve kaynaklar hakkında bilgileri içerir. Örn:
-/proc/uptime
+/proc Sistem çalışan işlemler ve kaynaklar hakkında bilgileri içerir. Örn:/proc/uptime
 /root Root kullanısının dosya dizinidir. / ana dizin ile karıştırılmamalıdır.
 /snap Uygulamalar için yeni nesil paket sistemidir.
 /run En son boot işleminde sonra oluşan kullanıcı ve işlem bilgilerini
@@ -107,8 +106,8 @@ anlamındadır.
 rmdir (Remove Directory) : Bir dizini silmek isterseniz rmdir komutunu kullanabilirsiniz.
 
 * = hepsi
-  su, komutu kullanıcılar arası geçiş için kullanılır. ozgur kullanıcısı ile su komutunu kullanarak
-  aydin kullanıcısı olarak login olabiliriz.
+  su, komutu kullanıcılar arası geçiş için kullanılır. a kullanıcısı ile su komutunu kullanarak
+  b kullanıcısı olarak login olabiliriz.
 
 Operatorler:
 
@@ -371,6 +370,100 @@ sudo systemctl start cockpit komutu ile uygulamayı başlatıyoruz.
 sudo systemctl enable cockpit komutu ile sunucu yeniden başladığında uygulamanın da
 otomatik olarak başlamasını sağlıyoruz.
 Bilgisayarınızın browserından http://sunucu_ipiniz:9090 adresine gidelim.
+
+Dpkg (Debian Package) ise .deb paketlerini yüklemek için kullanılan bir araçtır. Apt gibi
+yeteneklere sahip değildir. Apt bütün paket yönetimini otomatize ederken dpkg ile bu
+işlemleri manuel yapmanız gerekir. 
+
+İşletim sistemimizin versiyon bilgisini cat /proc/version komutu ile görebiliriz.
+
+nano /etc/apt/sources.list 
+
+MBR bir disk üzerinde en fazla 4 bölüm oluşturabilir
+ve bölüm tarafından kullanılabilecek maksimum boyut 2 TB ile sınırlıdır.
+
+Yeni nesil sunucular artık BIOS değil UEFI ile
+gelmektedir. GPT bir disk üzerinden 128 bölüm oluşturabilir. 2 TB’lık sınır yoktur. 8 zebibyte (ZiB) kadar
+bölüm oluşturulabilir.
+
+systemctl list-units --type=service
+
+systemctl cat sshd
+systemctl list-dependencies sshd
+
+
+
+
+/dev Dizini
+
+Linux sistemine bir donanım eklendiğinde, /dev dizini altında,
+eklenen donanımı tanımlayan bir dosya oluşturulur.
+
+/proc Dizini
+Linux sistemdeki donanımların durumu ve bilgileri hakkındaki detaylar bu dizinde bulunur.
+Linux çekirdeği, sistemdeki donanımın durumunu izlerken /proc dizinindeki dosyaları ve
+verileri değiştirir.
+
+/sys Dizini
+/proc dizinine benzer bir işlevi olan donanımlar hakkında ek bilgiler sağlayan diğer bir
+dizindir. Kernel tarafından oluşturulur. Cihaz ve fonksiyonlara göre alt dizinlere ayrılır.
+
+ip a add 192.168.1.44 dev enp0s3 komutu ile interface IP adresi ekleyebiliriz. Add yerine
+del argümanını kullanırsak silebiliriz.
+ifconfig enp0s3 add 192.168.1.50 komutuyla interface bir IP adresi ekledik. İfconfig komut
+çıktısına baktığımızda enp0s3:0 isimli bir sanal interface oluştuğunu görebiliriz.
+
+networkctl 
+
+netstat -l sadece listening durumunda olan portların çıktısını verir
+netstat -a komutu bütün portların olduğu bir çıktı verir.
+netstat -r komutu ile routing tablosu görüntülenir.
+
+/etc/hostname
+
+sudo nano /etc/resolve.conf
+resolve.conf dosyası sunucunuzu DNS çözümlemesi için kullanacağı DNS sunucularının
+kaydının tutulduğu dosyadır. Dosyanın içine girdiğinizde systemd-resolved tarafından
+yönetildiği ve düzenlemememiz konusunda uyarılıyoruz.
+
+resolvectl status komutuyla DNS sorgulama
+
+route add 8.8.8.8 gw 192.168.1.1 dev eth1
+
+Device Name Tanımı
+/dev/fd0, /dev/fd1 Floopy Drive anlamında fd kullanılır. 0’dan başlar eklenen her
+floppy drive için sayı bir artar.
+/dev/sda, /dev/sdb SCSI driver kullanan harddisk anlamında sd kullanılır. a ile
+başlar, eklenen her disk için alfabetik sırayla devam eder.
+/dev/sda1, /dev/sda2
+Harddiskin bölümlerini temsil eder. Sda isimli cihazın 1’nci
+bölümü sda1, ikinci bölümü sda2 şeklinde numeratik devam
+eder.
+/dev/scd0 veya /dev/sr0 Optik disk okuyucu olarak tanımlanır.
+
+
+
+Bölümlere baktığımızda sda1 dediğimiz alan disk üzerindeki MBR dediğimiz alandır. Bu alan
+silinirse sunucunuz reboot olduktan sonra bir daha açılmayacaktır. Çünkü ön yükleyici kod
+ve bölümler hakkında bilgi bu alanda bulunuyordu.
+sda2, root dizininin bulunduğu aslıdan tüm dosya sisteminin bulunduğu alandır.
+sda3, boot alanının kernel ve grub’un bulunduğu bölümdür. Bu bölümde silinirse sistem
+açılmaz.
+sda4, home dizini için ayrılan alandır. Sistem üzerinde açılan kullanıcıların kullandığı home
+dizini için kullanılır.
+8’in anlamı SCSI disk’tir
+
+df -hT
+
+fdisk -l komutuyla sistemde varolan disk bölümlerini görebilirsiniz.
+
+
+
+
+
+
+
+
 
 
 Bilgiler özgür aydın'ın kitabından alınmıştır.
